@@ -19,6 +19,7 @@ function Search() {
         value={search}
         placeholder="Enter the Search term"
         onChange={(e) => setSearch(e.target.value)}
+        className="p-1 mr-1"
       />
       <button
         type="submit"

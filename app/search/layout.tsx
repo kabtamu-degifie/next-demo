@@ -9,8 +9,8 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex-1 p-5">
         <Search />
+        <div>{children}</div>
       </div>
-      <div>{children}</div>
     </main>
   );
 }
