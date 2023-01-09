@@ -3,7 +3,12 @@ import { Todo } from "../../../typings";
 
 async function fetchTodo(todoId: string) {
   const res = await fetch(
-    `https://jsonplaceholder.typicode.com/todos/${todoId}`
+    `https://jsonplaceholder.typicode.com/todos/${todoId}`,
+    {
+      next: {
+        revalidate: 60,
+      },
+    }
   );
   const todos: Todo = await res.json();
   return todos;
@@ -29,3 +34,14 @@ async function TodoPage({ params: { todoId } }: TodoPageProps) {
 }
 
 export default TodoPage;
+
+export async function generateStaticParams() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const todos: Todo[] = await res.json();
+
+  const slicedTodos = todos.slice(0, 10);
+
+  return slicedTodos.map((todo) => ({
+    todoId: todo.id.toString(),
+  }));
+}
